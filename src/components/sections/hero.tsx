@@ -104,22 +104,22 @@ export function Hero() {
           {/* CTAs */}
           <FadeIn delay={0.5} direction="up">
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-              <Button as="a" href="#projects" variant="primary" size="lg" className="gap-2 group shadow-lg shadow-accent/5">
+              <a
+                href="#projects"
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-mono bg-primary text-primary-foreground hover:bg-neutral-200 shadow-sm h-11 px-6 text-base gap-2 group shadow-lg shadow-accent/5"
+              >
                 View Projects
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </Button>
+              </a>
               {resumeExists ? (
-                <Button
-                  as="a"
+                <a
                   href={`/resume/${profile.resumeFilename}`}
                   download={profile.resumeFilename}
-                  variant="secondary"
-                  size="lg"
-                  className="gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80"
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-mono text-foreground h-11 px-6 text-base gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80"
                 >
                   Download Resume
                   <Download size={14} />
-                </Button>
+                </a>
               ) : (
                 <Button
                   variant="secondary"

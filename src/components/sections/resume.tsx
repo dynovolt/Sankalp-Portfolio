@@ -44,16 +44,14 @@ export function Resume() {
         <div className="z-10 w-full md:w-auto flex justify-end">
           <FadeIn delay={0.2} direction="none" className="w-full sm:w-auto">
             {resumeExists ? (
-              <Button
-                as="a"
+              <a
                 href={`/resume/${profile.resumeFilename}`}
                 download={profile.resumeFilename}
-                variant="primary"
-                className="gap-2 w-full sm:w-auto"
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-mono bg-primary text-primary-foreground hover:bg-neutral-200 shadow-sm h-10 px-4 gap-2 w-full sm:w-auto"
               >
                 <Download size={16} />
                 Download Resume PDF
-              </Button>
+              </a>
             ) : (
               <Button
                 variant="primary"
@@ -61,8 +59,8 @@ export function Resume() {
                 className="gap-2 w-full sm:w-auto cursor-not-allowed opacity-50"
                 aria-label="Resume file currently unavailable"
               >
-                Resume Unavailable
                 <Download size={16} />
+                Resume Unavailable
               </Button>
             )}
           </FadeIn>
