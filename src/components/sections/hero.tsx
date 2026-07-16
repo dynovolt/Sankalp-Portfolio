@@ -5,10 +5,12 @@ import { profile } from "@/constants/profile";
 import { socials } from "@/constants/socials";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/animations/fade-in";
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail, Loader2 } from "lucide-react";
+import { DossierModal } from "@/components/shared/dossier-modal";
 
 export function Hero() {
   const [resumeExists, setResumeExists] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetch(`/resume/${profile.resumeFilename}`, { method: "HEAD" })
@@ -19,6 +21,7 @@ export function Hero() {
   }, []);
 
   return (
+    <>
     <section
       id="hero"
       className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center border-b border-border overflow-hidden py-16 md:py-24"
@@ -124,12 +127,12 @@ export function Hero() {
                 <Button
                   variant="secondary"
                   size="lg"
-                  disabled
-                  className="gap-2 border border-border/40 bg-neutral-900/10 cursor-not-allowed opacity-50"
-                  aria-label="Resume file currently unavailable"
+                  onClick={() => setIsModalOpen(true)}
+                  className="gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80"
+                  aria-label="Resume currently compiling, click to view engineering dossier"
                 >
-                  Resume Unavailable
-                  <Download size={14} />
+                  <Loader2 size={14} className="animate-spin text-accent" />
+                  Compiling Resume...
                 </Button>
               )}
             </div>
@@ -269,5 +272,7 @@ export function Hero() {
 
       </div>
     </section>
+    <DossierModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }
