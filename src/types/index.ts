@@ -9,6 +9,11 @@ export interface Project {
   status: "Completed" | "Beta" | "Production" | "Archived";
   year: string;
   tags: string[];
+  hasDeployment: boolean;
+  deploymentStatus?: "DEPLOYING" | "LOCAL ENVIRONMENT" | "ARCHIVED";
+  deploymentProgress?: number;
+  currentRelease?: string;
+  expectedRelease?: string;
 }
 
 export interface Profile {

@@ -11,7 +11,12 @@ export const projects: Project[] = [
     image: "/projects/calcnest.webp",
     status: "Production",
     year: "2026",
-    tags: ["Collaboration", "SaaS", "Real-time"]
+    tags: ["Collaboration", "SaaS", "Real-time"],
+    hasDeployment: false,
+    deploymentStatus: "DEPLOYING",
+    deploymentProgress: 82,
+    currentRelease: "v0.1.0",
+    expectedRelease: "v0.2.0"
   },
   {
     title: "AI Resume Analyzer",
@@ -23,7 +28,12 @@ export const projects: Project[] = [
     image: "/projects/resume-analyzer.webp",
     status: "Beta",
     year: "2026",
-    tags: ["LLM", "AI Agents", "Career Tech"]
+    tags: ["LLM", "AI Agents", "Career Tech"],
+    hasDeployment: false,
+    deploymentStatus: "LOCAL ENVIRONMENT",
+    deploymentProgress: 60,
+    currentRelease: "v0.1.0",
+    expectedRelease: "v0.2.0"
   },
   {
     title: "Campus Connect",
@@ -35,6 +45,11 @@ export const projects: Project[] = [
     image: "/projects/campus-connect.webp",
     status: "Completed",
     year: "2025",
-    tags: ["Networking", "Real-time", "University"]
+    tags: ["Networking", "Real-time", "University"],
+    hasDeployment: false,
+    deploymentStatus: "ARCHIVED",
+    deploymentProgress: 100,
+    currentRelease: "v0.1.0",
+    expectedRelease: "v0.2.0"
   }
 ];
