@@ -15,7 +15,7 @@ export const profile = {
   location: "India",
   heroTagline: "Building intelligent software that solves real-world problems.",
   heroSubtitle: "Bridging the gap between cutting-edge AI research and production-grade engineering.",
-  resumeFilename: "sankalp_resume.pdf",
+  resumeFilename: "Sankalp_S_Resume.pdf",
   profileImagePath: "/profile/portrait.png",
   currentStatus: "Final semester of Third Year | Expected Graduation: 2027",
   bio: {

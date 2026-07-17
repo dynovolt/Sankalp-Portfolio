@@ -9,16 +9,7 @@ import { ArrowRight, Download, Github, Linkedin, Mail, Loader2 } from "lucide-re
 import { DossierModal } from "@/components/shared/dossier-modal";
 
 export function Hero() {
-  const [resumeExists, setResumeExists] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    fetch(`/resume/${profile.resumeFilename}`, { method: "HEAD" })
-      .then((res) => {
-        if (!res.ok) setResumeExists(false);
-      })
-      .catch(() => setResumeExists(false));
-  }, []);
 
   return (
     <>
@@ -114,27 +105,16 @@ export function Hero() {
                 View Projects
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </a>
-              {resumeExists ? (
-                <a
-                  href={`/resume/${profile.resumeFilename}`}
-                  download={profile.resumeFilename}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-mono text-foreground h-11 px-6 text-base gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80"
-                >
-                  Download Resume
-                  <Download size={14} />
-                </a>
-              ) : (
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={() => setIsModalOpen(true)}
-                  className="gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80"
-                  aria-label="Resume currently compiling, click to view engineering dossier"
-                >
-                  <Loader2 size={14} className="animate-spin text-accent" />
-                  Compiling Resume...
-                </Button>
-              )}
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={() => setIsModalOpen(true)}
+                className="gap-2 border border-border/80 bg-neutral-900/20 backdrop-blur-sm hover:bg-neutral-900/80 text-foreground"
+                aria-label="Open engineering dossier modal"
+              >
+                Download Resume
+                <Download size={14} />
+              </Button>
             </div>
           </FadeIn>
 

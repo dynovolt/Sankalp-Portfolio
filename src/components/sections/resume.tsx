@@ -1,24 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { profile } from "@/constants/profile";
+import React, { useState } from "react";
 import { SectionContainer } from "@/components/shared/section-container";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/animations/fade-in";
-import { Download, FileText, Loader2 } from "lucide-react";
+import { FileText, Shield } from "lucide-react";
 import { DossierModal } from "@/components/shared/dossier-modal";
 
 export function Resume() {
-  const [resumeExists, setResumeExists] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    fetch(`/resume/${profile.resumeFilename}`, { method: "HEAD" })
-      .then((res) => {
-        if (!res.ok) setResumeExists(false);
-      })
-      .catch(() => setResumeExists(false));
-  }, []);
 
   return (
     <>
@@ -28,44 +18,62 @@ export function Resume() {
           {/* Abstract Background Accent */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Credentials Info */}
-          <div className="flex items-start gap-4 z-10">
+          {/* Credentials / Resume Card Info */}
+          <div className="flex flex-col sm:flex-row items-start gap-4 z-10 w-full md:w-auto">
             <div className="p-3 rounded bg-neutral-900 border border-border text-accent hidden sm:block">
               <FileText size={24} />
             </div>
-            <div className="flex flex-col gap-1 max-w-lg">
-              <h4 className="text-lg font-bold tracking-tight text-foreground">
-                Review engineering record & experience
-              </h4>
-              <p className="text-xs text-muted leading-relaxed">
+            <div className="flex flex-col gap-2 max-w-lg">
+              {/* Header & Status Chip */}
+              <div className="flex flex-wrap items-center gap-3">
+                <h4 className="text-lg font-bold tracking-tight text-foreground font-sans">
+                  Professional Engineering Record
+                </h4>
+                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-[10px] font-mono tracking-widest text-emerald-500 select-none">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                  </span>
+                  ● VERIFIED
+                </div>
+              </div>
+              
+              <p className="text-xs text-muted leading-relaxed font-sans font-normal">
                 Access my complete, technical resume outlining systems development, deep learning integrations, and academic history in PDF format.
               </p>
+
+              {/* Minimal Metadata Info Grid */}
+              <div className="grid grid-cols-3 gap-6 mt-2 pt-3 border-t border-border/50 text-xs font-mono">
+                <div className="flex flex-col">
+                  <span className="text-muted-foreground text-[9px] uppercase tracking-wider">Version</span>
+                  <span className="text-foreground font-semibold">v0.2.0</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-muted-foreground text-[9px] uppercase tracking-wider">Status</span>
+                  <span className="text-foreground font-semibold flex items-center gap-1">
+                    <Shield size={10} className="text-emerald-500" />
+                    Verified
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-muted-foreground text-[9px] uppercase tracking-wider">Last Updated</span>
+                  <span className="text-foreground font-semibold">July 2026</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Action Button */}
           <div className="z-10 w-full md:w-auto flex justify-end">
             <FadeIn delay={0.2} direction="none" className="w-full sm:w-auto">
-              {resumeExists ? (
-                <a
-                  href={`/resume/${profile.resumeFilename}`}
-                  download={profile.resumeFilename}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-mono bg-primary text-primary-foreground hover:bg-neutral-200 shadow-sm h-10 px-4 gap-2 w-full sm:w-auto"
-                >
-                  <Download size={16} />
-                  Download Resume PDF
-                </a>
-              ) : (
-                <Button
-                  variant="secondary"
-                  onClick={() => setIsModalOpen(true)}
-                  className="gap-2 w-full sm:w-auto"
-                  aria-label="Resume currently compiling, click to view engineering dossier"
-                >
-                  <Loader2 size={16} className="animate-spin text-accent" />
-                  Compiling Resume...
-                </Button>
-              )}
+              <Button
+                variant="primary"
+                onClick={() => setIsModalOpen(true)}
+                className="gap-2 w-full sm:w-auto font-mono text-xs tracking-wider"
+                aria-label="Open engineering dossier modal"
+              >
+                <FileText size={16} />
+                Engineering Dossier
+              </Button>
             </FadeIn>
           </div>
 
@@ -76,4 +84,5 @@ export function Resume() {
     </>
   );
 }
+
 
