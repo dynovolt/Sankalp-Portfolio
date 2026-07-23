@@ -5,12 +5,20 @@ import { navigationItems } from "@/constants/navigation";
 import { profile } from "@/constants/profile";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const [activeHash, setActiveHash] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
+    if (!isHome) {
+      setActiveHash("");
+      return;
+    }
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
       const sections = navigationItems.map(item => item.href.replace("#", ""));
@@ -21,22 +29,28 @@ export function Header() {
           const top = el.offsetTop;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveHash(`#${section}`);
+            setActiveHash(itemHref(section));
             break;
           }
         }
       }
     };
 
+    const itemHref = (section: string) => `#${section}`;
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome]);
+
+  const getHref = (href: string) => {
+    return isHome ? href : `/${href}`;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-5xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
-        <a href="#hero" className="font-mono font-semibold tracking-tight text-sm text-foreground">
-          {profile.fullName} <span className="text-accent text-[8px] uppercase tracking-widest font-mono">v0.1.0</span>
+        <a href={isHome ? "#hero" : "/"} className="font-mono font-semibold tracking-tight text-sm text-foreground hover:text-accent transition-colors">
+          {profile.fullName} <span className="text-accent text-[8px] uppercase tracking-widest font-mono">v0.2.0</span>
         </a>
 
         {/* Desktop Nav */}
@@ -44,10 +58,10 @@ export function Header() {
           {navigationItems.map((item) => (
             <a
               key={item.name}
-              href={item.href}
+              href={getHref(item.href)}
               className={cn(
                 "text-xs font-mono tracking-wide transition-colors duration-200 hover:text-foreground",
-                activeHash === item.href ? "text-accent font-semibold" : "text-muted"
+                (isHome && activeHash === item.href) ? "text-accent font-semibold" : "text-muted"
               )}
             >
               {item.name}
@@ -72,11 +86,11 @@ export function Header() {
           {navigationItems.map((item) => (
             <a
               key={item.name}
-              href={item.href}
+              href={getHref(item.href)}
               onClick={() => setMobileMenuOpen(false)}
               className={cn(
                 "text-xs font-mono py-2 border-b border-border/50",
-                activeHash === item.href ? "text-accent font-semibold" : "text-muted"
+                (isHome && activeHash === item.href) ? "text-accent font-semibold" : "text-muted"
               )}
             >
               {item.name}

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { X, GitFork, Milestone } from "lucide-react";
+import { X, Github, Milestone } from "lucide-react";
 import { Project } from "@/types";
 
 interface DeploymentCenterProps {
@@ -180,14 +180,15 @@ export function DeploymentCenter({ project, isOpen, onClose }: DeploymentCenterP
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-2 mt-2">
-              <Button
-                variant="outline"
-                className="w-full gap-2 sm:flex-1 text-xs"
-                onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center rounded-md font-mono text-xs border border-border text-foreground hover:bg-card hover:text-accent h-10 px-4 gap-2 sm:flex-1 transition-all"
               >
-                <GitFork size={14} />
+                <Github size={14} />
                 Repository &rarr;
-              </Button>
+              </a>
               <Button
                 variant="secondary"
                 className="w-full gap-2 sm:flex-1 text-xs"

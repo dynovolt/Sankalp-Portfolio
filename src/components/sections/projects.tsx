@@ -8,6 +8,7 @@ import { FadeIn } from "@/components/animations/fade-in";
 import { Github, ExternalLink, Code } from "lucide-react";
 import { DeploymentCenter } from "@/components/shared/deployment-center";
 import { Project } from "@/types";
+import Link from "next/link";
 
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -24,7 +25,7 @@ export function Projects() {
               Building functional software with high engineering standards
             </h3>
             <p className="text-sm text-muted">
-              A curated selection of applications focusing on collaboration, artificial intelligence, and campus networking.
+              A curated selection of applications focusing on collaboration, artificial intelligence, and local developer sandboxes.
             </p>
           </div>
 
@@ -32,7 +33,7 @@ export function Projects() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <FadeIn key={project.title} delay={index * 0.1} direction="up">
-                <Card className="h-full flex flex-col justify-between p-6 hover:translate-y-[-2px] transition-transform duration-300">
+                <Card className="h-full flex flex-col justify-between p-6 hover:translate-y-[-2px] hover:border-accent/40 transition-all duration-300 bg-card/60 hover:bg-card/90">
                   <div className="flex flex-col gap-4">
                     {/* Card Header Info */}
                     <div className="flex items-center justify-between">
@@ -47,8 +48,10 @@ export function Projects() {
 
                     {/* Title & Description */}
                     <div className="flex flex-col gap-2">
-                      <h4 className="text-lg font-bold tracking-tight text-foreground">
-                        {project.title}
+                      <h4 className="text-lg font-bold tracking-tight text-foreground hover:text-accent transition-colors">
+                        <Link href={`/projects/${project.slug}`}>
+                          {project.title}
+                        </Link>
                       </h4>
                       <p className="text-xs text-muted leading-relaxed min-h-[72px]">
                         {project.description}
@@ -69,37 +72,47 @@ export function Projects() {
                   </div>
 
                   {/* External Connections / Action Buttons */}
-                  <div className="flex items-center gap-4 pt-6 mt-auto border-t border-border/40 font-mono text-xs">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors"
-                    >
-                      <Github size={14} />
-                      Code
-                    </a>
-                    {project.hasDeployment ? (
+                  <div className="flex items-center justify-between pt-6 mt-auto border-t border-border/40 font-mono text-xs">
+                    <div className="flex items-center gap-4">
                       <a
-                        href={project.demo}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors"
                       >
-                        <ExternalLink size={14} />
-                        Demo
+                        <Github size={14} />
+                        Code
                       </a>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          setSelectedProject(project);
-                          setIsModalOpen(true);
-                        }}
-                        className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors cursor-pointer text-left font-mono"
-                      >
-                        Deployment Status &rarr;
-                      </button>
-                    )}
+                      
+                      {project.hasDeployment ? (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors"
+                        >
+                          <ExternalLink size={14} />
+                          Demo
+                        </a>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setSelectedProject(project);
+                            setIsModalOpen(true);
+                          }}
+                          className="inline-flex items-center gap-1.5 text-accent hover:text-foreground transition-colors cursor-pointer text-left font-mono"
+                        >
+                          Deployment Status &rarr;
+                        </button>
+                      )}
+                    </div>
+                    
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="inline-flex items-center gap-1 text-accent hover:underline font-mono"
+                    >
+                      View Project &rarr;
+                    </Link>
                   </div>
                 </Card>
               </FadeIn>
@@ -116,4 +129,3 @@ export function Projects() {
     </>
   );
 }
-

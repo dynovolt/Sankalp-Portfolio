@@ -1,4 +1,30 @@
+export interface ProjectChallenge {
+  challenge: string;
+  solution: string;
+  tradeOff: string;
+}
+
+export interface ProjectArchitectureStep {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+export interface ProjectFeature {
+  title: string;
+  description: string;
+}
+
+export interface ProjectTechStackCategorized {
+  languages?: string[];
+  frameworks?: string[];
+  database?: string[];
+  infrastructure?: string[];
+  deployment?: string[];
+}
+
 export interface Project {
+  slug: string;
   title: string;
   description: string;
   techStack: string[];
@@ -6,7 +32,7 @@ export interface Project {
   demo: string;
   featured: boolean;
   image: string;
-  status: "Completed" | "Beta" | "Production" | "Archived";
+  status: "Completed" | "Beta" | "Production" | "Archived" | "Active Development" | "Production Ready";
   year: string;
   tags: string[];
   hasDeployment: boolean;
@@ -14,6 +40,14 @@ export interface Project {
   deploymentProgress?: number;
   currentRelease?: string;
   expectedRelease?: string;
+  problemStatement?: string;
+  whyBuilt?: string;
+  architecture?: ProjectArchitectureStep[];
+  coreFeatures?: ProjectFeature[];
+  techStackCategorized?: ProjectTechStackCategorized;
+  engineeringChallenges?: ProjectChallenge[];
+  roadmap?: string[];
+  gallery?: string[];
 }
 
 export interface Profile {
