@@ -514,7 +514,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
                   <span className="text-[10px] text-muted-foreground uppercase">Cloud</span>
                   <div className="flex flex-wrap gap-1">
                     <span className="px-2 py-0.5 rounded bg-neutral-900 border border-white/5 text-[10px] text-foreground">
-                      {project.slug === "calcnest" ? "Supabase Cloud" : project.slug === "ai-resume-analyzer" ? "Render Cloud" : "Local Hosting"}
+                      {project.slug === "calcnest" ? "Vercel" : project.slug === "ai-resume-analyzer" ? "Render Cloud" : "Local Hosting"}
                     </span>
                   </div>
                 </div>
@@ -523,7 +523,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
                   <span className="text-[10px] text-muted-foreground uppercase">Authentication</span>
                   <div className="flex flex-wrap gap-1">
                     <span className="px-2 py-0.5 rounded bg-neutral-900 border border-white/5 text-[10px] text-foreground">
-                      {project.slug === "calcnest" ? "Supabase Auth" : project.slug === "ai-resume-analyzer" ? "JWT Session Auth" : "Local Token Validator"}
+                      {project.slug === "calcnest" ? "OTP Email Authentication" : project.slug === "ai-resume-analyzer" ? "JWT Session Auth" : "Local Token Validator"}
                     </span>
                   </div>
                 </div>

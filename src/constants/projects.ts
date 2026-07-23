@@ -4,86 +4,119 @@ export const projects: Project[] = [
   {
     slug: "calcnest",
     title: "CalcNest",
-    description: "A premium, cloud-native collaborative calculation platform that lets teams run real-time dynamic computations and share complex mathematical formulas seamlessly.",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Framer Motion"],
+    description: "CalcNest is a modern SaaS platform that digitizes calculator rentals for universities. It replaces manual register-based systems with a secure, scalable, and user-friendly web application that streamlines inventory management, rentals, returns, and administration.",
+    techStack: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Prisma", "Supabase PostgreSQL", "Vercel"],
     github: "https://github.com/dynovolt/CalcNest",
     demo: "https://calcnest.vercel.app",
     featured: true,
     image: "/projects/calcnest.webp",
     status: "Production Ready",
     year: "2026",
-    tags: ["Collaboration", "SaaS", "Real-time"],
+    tags: ["Full-Stack SaaS", "OTP Auth", "University Portal"],
     hasDeployment: true,
-    problemStatement: "Modern teams lack a unified, secure, real-time environment to write and run dynamic calculations collaboratively. Standard spreadsheets are overly complex, prone to broken cell references, and isolated, while simple scratchpad calculators completely lack multi-user collaboration, shared variables, or audit-trail history.",
-    whyBuilt: "To bridge the gap between static spreadsheet formulas and collaborative document editing. CalcNest was built to provide a lightweight calculation canvas that feels as immediate as a Google Doc, yet operates with a powerful reactive calculation engine for complex financial, mathematical, or engineering formulas.",
+    problemStatement: "Many universities continue to manage calculator rentals using paper registers and manual processes. This leads to misplaced records, inaccurate inventory tracking, inefficient borrowing workflows, and unnecessary administrative overhead.\n\nCalcNest solves this problem by providing a centralized digital platform where students can reserve calculators, administrators can manage inventory in real time, and the entire rental lifecycle becomes transparent and efficient.",
+    whyBuilt: "I wanted to build a real-world SaaS product that solves an operational problem faced by universities while strengthening my skills in full-stack development, authentication, database design, product thinking, and scalable application architecture.\n\nRather than building another CRUD application, I focused on creating a product that could realistically be deployed within an educational institution.",
     architecture: [
       {
-        title: "Frontend Client",
-        description: "Responsive Next.js React client with computation canvas editor.",
+        title: "Frontend",
+        description: "Built with Next.js 15 for a fast, responsive user interface.",
         icon: "Cpu"
       },
       {
+        title: "Authentication",
+        description: "Uses secure College Email OTP Authentication to verify access.",
+        icon: "Mail"
+      },
+      {
         title: "API Layer",
-        description: "Stateless calculation service orchestrating dependency parsing.",
+        description: "Uses Next.js Server Actions & Route Handlers for backend logic.",
         icon: "Terminal"
       },
       {
-        title: "Database Store",
-        description: "PostgreSQL database persisting formula workspaces and user configurations.",
+        title: "Database",
+        description: "Persisted in Supabase PostgreSQL for reliable relational storage.",
         icon: "Database"
       },
       {
-        title: "Authentication",
-        description: "Supabase authentication guarding user workspaces and access tokens.",
-        icon: "Share2"
+        title: "ORM",
+        description: "Utilizes Prisma for type-safe database queries and schemas.",
+        icon: "Layers"
       },
       {
-        title: "Deployment Target",
-        description: "Vercel Edge Network serving pages with low-latency CDN caches.",
+        title: "Hosting",
+        description: "Deployed on Vercel for fast load times and seamless scaling.",
         icon: "Server"
       }
     ],
     coreFeatures: [
       {
-        title: "Real-time Multi-user Canvas",
-        description: "Collaborative calc-sheets allowing dozens of engineers to concurrently edit equations and observe outcomes instantly."
+        title: "College email OTP authentication",
+        description: "Secure login restricting dashboard access to verified campus email addresses."
       },
       {
-        title: "Reactive Computation DAG",
-        description: "Under-the-hood Directed Acyclic Graph that automatically recalculates down-stream cells when upstream inputs change."
+        title: "Student and Administrator dashboards",
+        description: "Tailored roles and interfaces for borrowing calculators and managing system inventories."
       },
       {
-        title: "Universal Math & Unit Library",
-        description: "Built-in support for advanced trigonometric functions, statistics, and customizable metric units with auto-conversion."
+        title: "Real-time calculator inventory",
+        description: "Instant updates on calculator counts, availability states, and specific item locations."
       },
       {
-        title: "Audit History Timeline",
-        description: "Git-like version tracking detailing who changed which equation, with absolute point-in-time state restoration."
+        title: "Rental booking workflow",
+        description: "Streamlined multi-step booking process for students to secure calculators for their courses."
+      },
+      {
+        title: "Rental extension requests",
+        description: "Enables students to submit borrowing extension requests directly for administrative approval."
+      },
+      {
+        title: "QR-based pickup and return process",
+        description: "Simplifies physical distribution and returns using instant QR-code verification scanners."
+      },
+      {
+        title: "Inventory management dashboard",
+        description: "Comprehensive management panel to add, edit, track, or retire physical calculators."
+      },
+      {
+        title: "Usage analytics",
+        description: "Provides admins with visual metrics on reservation frequencies, popular models, and return times."
+      },
+      {
+        title: "Secure role-based access",
+        description: "Protects critical database and UI actions, ensuring users only see what their role allows."
+      },
+      {
+        title: "Responsive design",
+        description: "Fully optimized layout that works beautifully across mobile devices, tablets, and desktops."
       }
     ],
     techStackCategorized: {
       languages: ["TypeScript", "JavaScript", "SQL"],
-      frameworks: ["Next.js (App Router)", "React.js", "Tailwind CSS"],
-      database: ["PostgreSQL (Supabase)"],
-      infrastructure: ["Supabase Realtime Engine", "Vercel Edge Network"],
-      deployment: ["Vercel Git Integration"]
+      frameworks: ["Next.js 15", "React", "Tailwind CSS"],
+      database: ["Supabase PostgreSQL"],
+      infrastructure: ["Prisma ORM", "OTP Email Authentication"],
+      deployment: ["Vercel"]
     },
     engineeringChallenges: [
       {
-        challenge: "Resolving cyclic dependencies and handling race conditions in concurrent user recalculations.",
-        solution: "Implemented a custom topological sort cycle-detector on the DAG parser that blocks circular updates, coupled with Operational Transformation rules for cursor sync.",
-        tradeOff: "Minor reduction in processing throughput under heavy concurrent write loads in exchange for guaranteed structural safety and consistent client state."
+        challenge: "Designing a database schema that could efficiently track calculators, rental history, availability, user roles, and booking status while maintaining consistency across multiple workflows.",
+        solution: "Engineered a relational model in Prisma with transactional status updates, constraint checking, and history logs to guarantee consistency.",
+        tradeOff: "Slightly more complex query logic for fetching state, but avoids out-of-sync or orphaned rental data."
       },
       {
-        challenge: "Optimizing formula parsing performance for sheets containing thousands of interconnected formulas.",
-        solution: "Moved AST parsing and calculation processes to multi-threaded Web Workers, keeping the React UI thread completely unblocked.",
-        tradeOff: "Small startup delay when worker scripts boot up, but entirely smooth interaction behavior afterwards."
+        challenge: "Creating an intuitive user experience that remained simple for students while exposing advanced inventory management capabilities for administrators.",
+        solution: "Built dual-view interfaces with role-based routing, keeping student bookings simple while offering analytics and CRUD tables for administrators.",
+        tradeOff: "Requires maintaining separate routes and dashboard layouts, but ensures high usability and zero confusion for students."
       }
     ],
     roadmap: [
-      "Natural language expression parser using localized AI model suggestions.",
-      "Offline-first sync using local IndexedDB storage syncing back once online.",
-      "Custom plugin API to support importing custom engineering calculations and libraries."
+      "Payment gateway integration",
+      "WhatsApp notifications",
+      "Email reminders",
+      "Predictive inventory analytics",
+      "Multi-campus support",
+      "Native mobile application",
+      "RFID integration"
     ],
     gallery: [
       "/projects/calcnest-hero.webp",
